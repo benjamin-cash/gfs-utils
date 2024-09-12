@@ -11,7 +11,7 @@ endif()
 set(exe_name rdbfmsua.x)
 add_executable(${exe_name} ${fortran_src})
 target_link_libraries(${exe_name} PRIVATE bufr::bufr_4
-                                          w3emc::w3emc_4
+                         #                w3emc::w3emc_4
                                           gempak::gempak
                                           gfortran::gfortran)
 #target_link_libraries(${exe_name} PRIVATE "-lgfortran")

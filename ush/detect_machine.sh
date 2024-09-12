@@ -45,7 +45,7 @@ case $(hostname -f) in
   *) MACHINE_ID=UNKNOWN ;;  # Unknown platform
 esac
 
-if [[ ${MACHINE_ID} == "UNKNOWN" ]]; then
+if [[ ${MACHINE_ID} == "UNKNOWN" ]]; then 
    case ${PW_CSP:-} in
       "aws" | "google" | "azure") MACHINE_ID=noaacloud ;;
       *) PW_CSP="UNKNOWN"
@@ -75,8 +75,8 @@ elif [[ -d /scratch1 ]]; then
   MACHINE_ID=hera
 elif [[ -d /work ]]; then
   # We are on MSU Orion or Hercules
-  mount=$(findmnt -n -o SOURCE /home)
-  if [[ ${mount} =~ "hercules" ]]; then
+  if [[ -d /apps/other ]]; then
+    # We are on Hercules
     MACHINE_ID=hercules
   else
     MACHINE_ID=orion
@@ -84,6 +84,9 @@ elif [[ -d /work ]]; then
 elif [[ -d /gpfs && -d /ncrc ]]; then
   # We are on GAEA.
   MACHINE_ID=gaea
+elif [[ -d /opt/spack-stack ]]; then
+  # We are in a container
+  MACHINE_ID=container
 elif [[ -d /data/prod ]]; then
   # We are on SSEC's S4
   MACHINE_ID=s4
